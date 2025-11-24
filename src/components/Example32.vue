@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import {
-  type AutocompleterOption,
-  type EditCommand,
-  type Formatter,
-  type GridOption,
-  type LongTextEditorOption,
-  type SearchTerm,
-  type SlickgridVueInstance,
-  type VanillaCalendarOption,
-  type Column,
   Editors,
   Filters,
   formatNumber,
@@ -17,9 +8,17 @@ import {
   SlickGlobalEditorLock,
   SlickgridVue,
   SortComparers,
+  type AutocompleterOption,
+  type Column,
+  type EditCommand,
+  type Formatter,
+  type GridOption,
+  type LongTextEditorOption,
+  type SearchTerm,
+  type SlickgridVueInstance,
+  type VanillaCalendarOption,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-
 import COUNTRIES_COLLECTION_URL from './data/countries.json?url';
 
 const NB_ITEMS = 400;
@@ -268,7 +267,7 @@ function defineGrid() {
         model: Editors.date,
         options: { displayDateMin: 'today' } as VanillaCalendarOption,
         validator: (value, args) => {
-          const dataContext = args && args.item;
+          const dataContext = args?.item;
           if (dataContext && dataContext.completed && !value) {
             return { valid: false, msg: 'You must provide a "Finish" date when "Completed" is checked.' };
           }
@@ -623,6 +622,14 @@ function saveAll() {
   editedItems.value = {};
 }
 
+function toggleAutoEdit(state: boolean) {
+  vueGrid.slickGrid?.setOptions({ autoEdit: state });
+}
+
+function toggleAutoEditByKeypress(state: boolean) {
+  vueGrid.slickGrid?.setOptions({ autoEditByKeypress: state });
+}
+
 function undoLastEdit(showLastEditor = false) {
   const lastEdit = editQueue.value.pop();
   const lastEditCommand = lastEdit?.editCommand;
@@ -920,6 +927,7 @@ function renderItemCallbackWith4Corners(item: any): string {
           <i class="mdi mdi-arrow-expand"></i> Resize by Cell Content
         </label>
       </div>
+      <span class="ms-3 h5">Container Width (950px)</span>
     </div>
 
     <div class="mb-2">
@@ -941,6 +949,34 @@ function renderItemCallbackWith4Corners(item: any): string {
         </button>
         <button type="button" class="btn btn-outline-secondary btn-icon" data-test="save-all-btn" @click="saveAll()">
           <span>Save All</span>
+        </button>
+      </div>
+      <span class="ms-2"><code>autoEdit</code></span>
+      <div class="btn-group" role="group" aria-label="autoEdit">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-test="auto-edit-on-btn" @click="toggleAutoEdit(true)">
+          ON
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-test="auto-edit-off-btn" @click="toggleAutoEdit(false)">
+          OFF
+        </button>
+      </div>
+      <span class="ms-2"><code>autoEditByKeypress</code></span>
+      <div class="btn-group" role="group" aria-label="autoEditByKeypress">
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          data-test="auto-edit-key-on-btn"
+          @click="toggleAutoEditByKeypress(true)"
+        >
+          ON
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          data-test="auto-edit-key-off-btn"
+          @click="toggleAutoEditByKeypress(false)"
+        >
+          OFF
         </button>
       </div>
     </div>

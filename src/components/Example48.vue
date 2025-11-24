@@ -37,7 +37,7 @@ function vueGrid1Ready(vueGrid: SlickgridVueInstance) {
 function vueGrid2Ready(vueGrid: SlickgridVueInstance) {
   const cellSelectionModel2 = vueGrid.slickGrid!.getSelectionModel()!;
   _eventHandler.subscribe(cellSelectionModel2.onSelectedRangesChanged, (_e, args) => {
-    const targetRange = document.querySelector('#selectionRange1') as HTMLSpanElement;
+    const targetRange = document.querySelector('#selectionRange2') as HTMLSpanElement;
     if (targetRange) {
       targetRange.textContent = '';
       for (const slickRange of args) {
@@ -135,7 +135,9 @@ function defineGrids() {
     rowSelectionOptions: {
       // True (Single Selection), False (Multiple Selections)
       selectActiveRow: false,
-      rowSelectColumnIds: ['id', '_checkbox_selector'],
+
+      // you could use "row" selection to override the hybrid mode
+      selectionType: 'row',
     },
   };
 }

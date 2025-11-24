@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import {
-  type GridOption,
-  type SlickgridVueInstance,
-  type Column,
+  Aggregators,
   Editors,
   ExtensionName,
   Filters,
   Formatters,
-  SlickgridVue,
-  Aggregators,
-  Grouping,
   GroupTotalFormatters,
+  SlickgridVue,
   SortComparers,
   SortDirectionNumber,
+  type Column,
+  type GridOption,
+  type Grouping,
+  type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { computed, onBeforeMount, onUnmounted, ref, type Ref } from 'vue';
-
 import Example47Detail from './Example47Detail.vue';
 import ExampleDetailPreload from './ExampleDetailPreload.vue';
 
@@ -380,10 +379,10 @@ function vueGridReady(grid: SlickgridVueInstance) {
         <button class="btn btn-outline-secondary btn-sm btn-icon" data-test="clear-grouping-btn" @click="clearGrouping()">
           <i class="mdi mdi-close"></i> Clear grouping
         </button>
-        <button class="btn btn-outline-secondary btn-sm btn-icon mx-1" data-test="collapse-all-group-btn" @click="collapseAllGroups()">
+        <button class="btn btn-outline-secondary btn-sm btn-icon mx-1" data-test="collapse-all-groups-btn" @click="collapseAllGroups()">
           <i class="mdi mdi-arrow-collapse"></i> Collapse all groups
         </button>
-        <button class="btn btn-outline-secondary btn-sm btn-icon" data-test="expand-all-btn" @click="expandAllGroups()">
+        <button class="btn btn-outline-secondary btn-sm btn-icon" data-test="expand-all-groups-btn" @click="expandAllGroups()">
           <i class="mdi mdi-arrow-expand"></i> Expand all groups
         </button>
 
