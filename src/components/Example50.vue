@@ -5,7 +5,6 @@ import {
   type Column,
   type GridOption,
   type OnClickEventArgs,
-  type RowSelectionModelOption,
   type SlickgridVueInstance,
 } from "slickgrid-vue";
 import { onBeforeMount, ref, type Ref } from "vue";
@@ -82,7 +81,8 @@ function defineGrids() {
     enableHybridSelection: true,
     rowSelectionOptions: {
       selectionType: "row",
-    } as RowSelectionModelOption,
+      selectActiveRow: true,
+    },
   };
 
   columnDefinitions2.value = [
