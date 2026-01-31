@@ -1,23 +1,24 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
+import { PdfExportService } from '@slickgrid-universal/pdf-export';
 import { TextExportService } from '@slickgrid-universal/text-export';
 import {
-  type GridOption,
-  type Grouping,
-  type GroupingGetterFunction,
-  type SlickgridVueInstance,
   Aggregators,
-  type Column,
   Filters,
   Formatters,
   GroupTotalFormatters,
   SlickgridVue,
   SortComparers,
   SortDirectionNumber,
+  type Column,
+  type GridOption,
+  type Grouping,
+  type GroupingGetterFunction,
+  type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { onBeforeMount, onUnmounted, ref, type Ref } from 'vue';
 
-const NB_ITEMS = 500;
+const NB_ITEMS = 10_000;
 const darkMode = ref(false);
 const gridOptions = ref<GridOption>();
 const columnDefinitions: Ref<Column[]> = ref([]);
@@ -26,6 +27,7 @@ let draggableGroupingPlugin: any;
 let durationOrderByCount = false;
 const selectedGroupingFields = ref<Array<string | GroupingGetterFunction>>(['', '', '']);
 const excelExportService = new ExcelExportService();
+const pdfExportService = new PdfExportService();
 const textExportService = new TextExportService();
 const showSubTitle = ref(true);
 let vueGrid!: SlickgridVueInstance;
@@ -75,7 +77,7 @@ function defineGrid() {
       groupTotalsFormatter: GroupTotalFormatters.sumTotals,
       grouping: {
         getter: 'duration',
-        formatter: (g) => `Duration: ${g.value}  <span class="text-primary">(${g.count} items)</span>`,
+        formatter: (g) => `Duration: ${g.value} <span class="text-primary">(${g.count} items)</span>`,
         comparer: (a, b) => {
           return durationOrderByCount ? a.count - b.count : SortComparers.numeric(a.value, b.value, SortDirectionNumber.asc);
         },
@@ -233,18 +235,24 @@ function defineGrid() {
     draggableGrouping: {
       dropPlaceHolderText: 'Drop a column header here to group by the column',
       // groupIconCssClass: 'mdi mdi-drag-vertical',
-      deleteIconCssClass: 'mdi mdi-close text-color-danger',
+      deleteIconCssClass: 'mdi mdi-close color-danger',
       sortAscIconCssClass: 'mdi mdi-arrow-up',
       sortDescIconCssClass: 'mdi mdi-arrow-down',
       onGroupChanged: (_e, args) => onGroupChanged(args),
       onExtensionRegistered: (extension) => (draggableGroupingPlugin = extension),
+      initialGroupBy: ['duration'],
     },
     darkMode: darkMode.value,
     enableTextExport: true,
     enableExcelExport: true,
     excelExportOptions: { sanitizeDataExport: true },
     textExportOptions: { sanitizeDataExport: true },
-    externalResources: [excelExportService, textExportService],
+    externalResources: [excelExportService, pdfExportService, textExportService],
+    enablePdfExport: true,
+    pdfExportOptions: {
+      repeatHeadersOnEachPage: true, // defaults to true
+      documentTitle: 'Grouping Grid',
+    },
   };
 }
 
@@ -303,6 +311,12 @@ function exportToExcel() {
   excelExportService.exportToExcel({
     filename: 'Export',
     format: 'xlsx',
+  });
+}
+
+function exportToPdf() {
+  pdfExportService.exportToPdf({
+    filename: 'Export',
   });
 }
 
@@ -455,9 +469,9 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <div class="form-inline">
     <div class="row">
       <div class="col-sm-12">
-        <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="add-500-rows-btn" @click="loadData(500)">500 rows</button>
+        <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="add-5k-rows-btn" @click="loadData(5000)">5K rows</button>
         <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="add-50k-rows-btn" @click="loadData(50000)">
-          50k rows
+          50K rows
         </button>
         <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="clear-grouping-btn" @click="clearGroupsAndSelects()">
           <i class="mdi mdi-close"></i> Clear grouping
@@ -473,6 +487,9 @@ function vueGridReady(grid: SlickgridVueInstance) {
         </button>
         <button class="btn btn-outline-secondary btn-xs btn-icon" @click="exportToExcel()">
           <i class="mdi mdi-file-excel-outline text-success"></i> Export to Excel
+        </button>
+        <button class="btn btn-outline-secondary btn-xs btn-icon" @click="exportToPdf()">
+          <i class="mdi mdi-file-pdf-outline text-danger"></i> Export to PDF
         </button>
       </div>
     </div>

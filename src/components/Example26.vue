@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import {
-  type GridOption,
-  type SlickgridVueInstance,
-  type Column,
-  type EditCommand,
   Editors,
   Filters,
-  type Formatter,
   Formatters,
-  type OnEventArgs,
   OperatorType,
-  type SliderOption,
   SlickGlobalEditorLock,
   SlickgridVue,
+  type Column,
+  type EditCommand,
+  type Formatter,
+  type GridOption,
+  type OnEventArgs,
+  type SlickgridVueInstance,
+  type SliderOption,
 } from 'slickgrid-vue';
-import { ComponentPublicInstance, createApp, onBeforeMount, ref, type Ref } from 'vue';
-
-import { CustomVueComponentEditor } from './custom-viewModelEditor';
-import { CustomVueComponentFilter } from './custom-viewModelFilter';
+import { createApp, onBeforeMount, ref, type ComponentPublicInstance, type Ref } from 'vue';
+import { CustomVueComponentEditor } from './custom-viewModelEditor.js';
+import { CustomVueComponentFilter } from './custom-viewModelFilter.js';
 import CustomTitleFormatter from './CustomTitleFormatterComponent.vue';
 import EditorSelect from './SelectEditorComponent.vue';
 import FilterSelect from './SelectFilterComponent.vue';
@@ -313,10 +312,10 @@ const vueComponentFormatter: Formatter = (_row: number, _cell: number, _val: any
   return '';
 };
 
-function setAutoEdit(isAutoEdit: boolean) {
-  isAutoEdit = isAutoEdit;
+function setAutoEdit(autoEdit: boolean) {
+  isAutoEdit.value = autoEdit;
   vueGrid.slickGrid.setOptions({
-    autoEdit: isAutoEdit,
+    autoEdit: autoEdit,
   });
   return true;
 }

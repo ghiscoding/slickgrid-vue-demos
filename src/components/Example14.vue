@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
-import { type GridOption, type ItemMetadata, type SlickgridVueInstance, type Column, SlickgridVue } from 'slickgrid-vue';
+import { PdfExportService } from '@slickgrid-universal/pdf-export';
+import { SlickgridVue, type Column, type GridOption, type ItemMetadata, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
 const NB_ITEMS = 500;
@@ -43,11 +44,12 @@ function definedGrid1() {
     preHeaderPanelHeight: 28,
     gridHeight: 275,
     gridWidth: 800,
+    enablePdfExport: true,
     enableExcelExport: true,
     excelExportOptions: {
       exportWithFormatter: false,
     },
-    externalResources: [new ExcelExportService()],
+    externalResources: [new ExcelExportService(), new PdfExportService()],
     explicitInitialization: true,
     dataView: {
       globalItemMetadataProvider: {
@@ -90,11 +92,12 @@ function definedGrid2() {
     gridHeight: 275,
     gridWidth: 800,
     frozenColumn: 2,
+    enablePdfExport: true,
     enableExcelExport: true,
     excelExportOptions: {
       exportWithFormatter: false,
     },
-    externalResources: [new ExcelExportService()],
+    externalResources: [new ExcelExportService(), new PdfExportService()],
     gridMenu: { hideClearFrozenColumnsCommand: false },
     headerMenu: { hideFreezeColumnsCommand: false },
   };

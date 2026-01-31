@@ -1,28 +1,30 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
+import { PdfExportService } from '@slickgrid-universal/pdf-export';
 import { TextExportService } from '@slickgrid-universal/text-export';
 import {
-  type GridOption,
-  type Grouping,
-  type SlickgridVueInstance,
   Aggregators,
-  type Column,
   Filters,
   Formatters,
   GroupTotalFormatters,
   SlickgridVue,
   SortComparers,
   SortDirectionNumber,
+  type Column,
+  type GridOption,
+  type Grouping,
+  type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
-const NB_ITEMS = 500;
+const NB_ITEMS = 5000;
 const gridOptions = ref<GridOption>();
 const columnDefinitions: Ref<Column[]> = ref([]);
 const dataset = ref<any[]>([]);
 const showSubTitle = ref(true);
 const processing = ref(false);
 const excelExportService = new ExcelExportService();
+const pdfExportService = new PdfExportService();
 const textExportService = new TextExportService();
 let vueGrid!: SlickgridVueInstance;
 
@@ -204,13 +206,19 @@ function defineGrid() {
     enableTextExport: true,
     excelExportOptions: { sanitizeDataExport: true },
     textExportOptions: { sanitizeDataExport: true },
-    externalResources: [excelExportService, textExportService],
+    externalResources: [excelExportService, pdfExportService, textExportService],
     showCustomFooter: true,
     customFooterOptions: {
       // optionally display some text on the left footer container
       hideMetrics: false,
       hideTotalItemCount: false,
       hideLastUpdateTimestamp: false,
+    },
+    enablePdfExport: true,
+    pdfExportOptions: {
+      repeatHeadersOnEachPage: false,
+      sanitizeDataExport: true,
+      documentTitle: 'Grouping Grid',
     },
   };
 }
@@ -260,6 +268,10 @@ function exportToExcel() {
   });
 }
 
+function exportToPdf() {
+  pdfExportService.exportToPdf({ filename: 'Export' });
+}
+
 function groupByDuration() {
   // you need to manually add the sort icon(s) in UI
   vueGrid.filterService.setSortColumnIcons([{ columnId: 'duration', sortAsc: true }]);
@@ -301,7 +313,7 @@ function groupByDurationEffortDriven() {
   vueGrid.dataView.setGrouping([
     {
       getter: 'duration',
-      formatter: (g) => `Duration: ${g.value}  <span style="color:green">(${g.count} items)</span>`,
+      formatter: (g) => `Duration: ${g.value} <span style="color:green">(${g.count} items)</span>`,
       aggregators: [new Aggregators.Sum('duration'), new Aggregators.Sum('cost')],
       aggregateCollapsed: true,
       lazyTotalsCalculation: true,
@@ -328,7 +340,7 @@ function groupByDurationEffortDrivenPercent() {
   vueGrid.dataView.setGrouping([
     {
       getter: 'duration',
-      formatter: (g) => `Duration: ${g.value}  <span style="color:green">(${g.count} items)</span>`,
+      formatter: (g) => `Duration: ${g.value} <span style="color:green">(${g.count} items)</span>`,
       aggregators: [new Aggregators.Sum('duration'), new Aggregators.Sum('cost')],
       aggregateCollapsed: true,
       lazyTotalsCalculation: true,
@@ -360,6 +372,7 @@ function toggleSubTitle() {
 
 function vueGridReady(grid: SlickgridVueInstance) {
   vueGrid = grid;
+  groupByDuration(); // group by duration on page load
 }
 </script>
 
@@ -393,8 +406,8 @@ function vueGridReady(grid: SlickgridVueInstance) {
 
   <div class="row">
     <div class="col-sm-12">
-      <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="add-500-rows-btn" @click="loadData(500)">500 rows</button>
-      <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="add-50k-rows-btn" @click="loadData(50000)">50k rows</button>
+      <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="add-5k-rows-btn" @click="loadData(5000)">5K rows</button>
+      <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="add-50k-rows-btn" @click="loadData(50000)">50K rows</button>
       <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="clear-grouping-btn" @click="clearGrouping()">
         <i class="mdi mdi-close"></i> Clear grouping
       </button>
@@ -406,6 +419,9 @@ function vueGridReady(grid: SlickgridVueInstance) {
       </button>
       <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="export-excel-btn" @click="exportToExcel()">
         <i class="mdi mdi-file-excel-outline text-success"></i> Export to Excel
+      </button>
+      <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="export-pdf-btn" @click="exportToPdf()">
+        <i class="mdi mdi-file-pdf-outline text-danger"></i> Export to PDF
       </button>
     </div>
   </div>
@@ -462,6 +478,8 @@ function vueGridReady(grid: SlickgridVueInstance) {
     grid-id="grid13"
     @onBeforeExportToExcel="processing = true"
     @onAfterExportToExcel="processing = false"
+    @onBeforeExportToPdf="processing = true"
+    @onAfterExportToPdf="processing = false"
     @onVueGridCreated="vueGridReady($event.detail)"
   >
   </slickgrid-vue>
