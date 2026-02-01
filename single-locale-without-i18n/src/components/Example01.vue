@@ -4,11 +4,11 @@ import {
   SlickgridVue,
   type Column,
   type GridOption,
-  type PaginationChangedArgs,
+  type PaginationMetadata,
   type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { onBeforeMount, onUnmounted, ref, type Ref } from 'vue';
-import { zeroPadding } from './utilities';
+import { zeroPadding } from './utilities.js';
 
 const NB_ITEMS = 995;
 
@@ -106,7 +106,7 @@ function mockData(count: number) {
   return mockDataset;
 }
 
-function paginationChanged(changes: PaginationChangedArgs) {
+function paginationChanged(changes: PaginationMetadata) {
   console.log('Pagination changed', changes);
 }
 
@@ -126,7 +126,7 @@ function toggleDarkModeGrid1() {
     Example 1: Basic Grids
     <span class="float-end font18">
       see&nbsp;
-      <a target="_blank" href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example01.vue">
+      <a target="_blank" href="https://github.com/ghiscoding/slickgrid-vue-demos/tree/main/single-locale-without-i18n/src/examples/slickgrid/Example01.vue">
         <span class="mdi mdi-link-variant"></span> code
       </a>
     </span>

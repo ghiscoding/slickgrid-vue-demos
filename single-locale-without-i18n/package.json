@@ -1,0 +1,60 @@
+{
+  "name": "slickgrid-vue-demos",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "author": {
+    "name": "Ghislain B."
+  },
+  "keywords": [
+    "react",
+    "datagrid",
+    "datatable",
+    "plugin",
+    "slickgrid"
+  ],
+  "homepage": "https://github.com/ghiscoding/slickgrid-universal/tree/master/frameworks/slickgrid-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghiscoding/slickgrid-universal.git",
+    "directory": "frameworks/slickgrid-vue"
+  },
+  "bugs": {
+    "url": "https://github.com/ghiscoding/slickgrid-universal/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.2.0",
+    "@fnando/sparkline": "^0.3.10",
+    "@formkit/tempo": "^1.0.0",
+    "@popperjs/core": "^2.11.8",
+    "@slickgrid-universal/common": "^9.13.0",
+    "@slickgrid-universal/composite-editor-component": "^9.13.0",
+    "@slickgrid-universal/custom-tooltip-plugin": "^9.13.0",
+    "@slickgrid-universal/event-pub-sub": "^9.13.0",
+    "@slickgrid-universal/excel-export": "^9.13.0",
+    "@slickgrid-universal/graphql": "^9.13.0",
+    "@slickgrid-universal/odata": "^9.13.0",
+    "@slickgrid-universal/pdf-export": "^9.13.0",
+    "@slickgrid-universal/row-detail-view-plugin": "^9.13.0",
+    "@slickgrid-universal/rxjs-observable": "^9.13.0",
+    "@slickgrid-universal/text-export": "^9.13.0",
+    "bootstrap": "^5.3.8",
+    "dompurify": "^3.3.1",
+    "rxjs": "^7.8.2",
+    "slickgrid-vue": "^9.13.0",
+    "vue": "^3.5.27",
+    "vue-router": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/fnando__sparkline": "^0.3.7",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "sass": "^1.97.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}
