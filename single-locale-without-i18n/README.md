@@ -1,4 +1,4 @@
-# <a href="https://vuejs.org/"><img src="https://play.vuejs.org/logo.svg" height="60" alt="VueJS"/></a> Slickgrid-Vue - Bootstrap 5 Demo with a Single Locale (single locale)
+# <a href="https://vuejs.org/"><img src="https://play.vuejs.org/logo.svg" height="60" alt="VueJS"/></a> Slickgrid-Vue with a Single Locale (single locale)
 
 Demo with a custom Single Locale, this mean that we load a static locale and this also mean that we don't need `i18n`
 

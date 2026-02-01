@@ -1,4 +1,4 @@
-# <a href="https://vuejs.org/"><img src="https://play.vuejs.org/logo.svg" height="60" alt="VueJS"/></a> Slickgrid-Vue - Bootstrap 5 Demo with i18n
+# <a href="https://vuejs.org/"><img src="https://play.vuejs.org/logo.svg" height="60" alt="VueJS"/></a> Slickgrid-Vue with `i18n` Translate
 
 ## Important Note
 Please note that some of the npm packages that are installed in these demos are **optional** and are installed **only** for demo purposes. If you don't need any of the feature desribe below, then don't install it (remove it from your `package.json`) and you'll end up with a much smaller production build.
