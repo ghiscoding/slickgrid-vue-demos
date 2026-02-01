@@ -152,7 +152,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       Example 49: Spreadsheet Drag-Fill
       <span class="float-end font18">
         see&nbsp;
-        <a target="_blank" href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example49.vue">
+        <a target="_blank" href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example49.vue">
           <span class="mdi mdi-link-variant"></span> code
         </a>
       </span>

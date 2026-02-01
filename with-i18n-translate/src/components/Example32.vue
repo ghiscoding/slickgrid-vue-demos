@@ -888,7 +888,7 @@ function renderItemCallbackWith4Corners(item: any): string {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example32.vue"
+        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example32.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>

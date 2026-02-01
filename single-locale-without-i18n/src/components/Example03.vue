@@ -195,7 +195,7 @@ function mockDetailData(c: Customer) {
     Example 3: Master/Detail Grids
     <span class="float-end font18">
       see&nbsp;
-      <a target="_blank" href="https://github.com/ghiscoding/slickgrid-vue-demos/tree/main/single-locale-without-i18n/src/examples/slickgrid/Example03.vue">
+      <a target="_blank" href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/single-locale-without-i18n/src/components/Example03.vue">
         <span class="mdi mdi-link-variant"></span> code
       </a>
     </span>

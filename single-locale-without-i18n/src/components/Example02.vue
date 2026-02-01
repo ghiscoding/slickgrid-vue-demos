@@ -232,7 +232,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/tree/main/single-locale-without-i18n/src/examples/slickgrid/Example02.vue"
+        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/single-locale-without-i18n/src/components/Example02.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
