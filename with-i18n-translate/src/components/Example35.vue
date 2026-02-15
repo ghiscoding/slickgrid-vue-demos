@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SlickCustomTooltip } from '@slickgrid-universal/custom-tooltip-plugin';
 import { useTranslation } from 'i18next-vue';
-import { type GridOption, type SlickgridVueInstance, type Column, Editors, Formatters, SlickgridVue } from 'slickgrid-vue';
+import { Editors, Formatters, SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
 const { i18next } = useTranslation();
@@ -265,7 +265,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example35.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example35.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -330,7 +330,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid35"
     @onVueGridCreated="vueGridReady($event.detail)"
   >

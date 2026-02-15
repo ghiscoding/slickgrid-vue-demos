@@ -3,18 +3,16 @@ import { format as tempoFormat } from '@formkit/tempo';
 import type { OdataOption, OdataServiceApi } from '@slickgrid-universal/odata';
 import { GridOdataService } from '@slickgrid-universal/odata';
 import {
-  type Column,
   Filters,
+  SlickgridVue,
+  type Column,
   type GridOption,
   type GridStateChange,
   type Metrics,
-  OperatorType,
   type Pagination,
-  SlickgridVue,
   type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-
 import Data from './data/customers_100.json';
 
 const defaultPageSize = 20;
@@ -94,13 +92,13 @@ function defineGrid() {
       hideInColumnTitleRow: true,
     },
     compoundOperatorAltTexts: {
-      // where '=' is any of the `OperatorString` type shown above
+      // where '=' is any of the `OperatorType` type shown above
       text: { Custom: { operatorAlt: '%%', descAlt: 'SQL Like' } },
     },
     enableCellNavigation: true,
     enableFiltering: true,
     enableCheckboxSelector: true,
-    enableRowSelection: true,
+    enableSelection: true,
     enablePagination: true, // you could optionally disable the Pagination
     pagination: {
       pageSizes: [10, 20, 50, 100, 500, 50000],
@@ -109,7 +107,7 @@ function defineGrid() {
     },
     presets: {
       // you can also type operator as string, e.g.: operator: 'EQ'
-      filters: [{ columnId: 'gender', searchTerms: ['male'], operator: OperatorType.equal }],
+      filters: [{ columnId: 'gender', searchTerms: ['male'], operator: '=' }],
       sorters: [
         // direction can be written as 'asc' (uppercase or lowercase) and/or use the SortDirection type
         { columnId: 'name', direction: 'asc' },
@@ -123,7 +121,7 @@ function defineGrid() {
         enableSelect: isSelectEnabled.value,
         enableExpand: isExpandEnabled.value,
         filterQueryOverride: ({ fieldName, columnDef, columnFilterOperator, searchValues }) => {
-          if (columnFilterOperator === OperatorType.custom && columnDef?.id === 'name') {
+          if (columnFilterOperator === 'Custom' && columnDef?.id === 'name') {
             let matchesSearch = searchValues[0].replace(/\*/g, '.*');
             matchesSearch = matchesSearch.slice(0, 1) + CARET_HTML_ESCAPED + matchesSearch.slice(1);
             matchesSearch = matchesSearch.slice(0, -1) + "$'";
@@ -415,7 +413,7 @@ function gridStateChanged(gridStateChanges: GridStateChange) {
 function setFiltersDynamically() {
   // we can Set Filters Dynamically (or different filters) afterward through the FilterService
   vueGrid.filterService.updateFilters([
-    // { columnId: 'gender', searchTerms: ['male'], operator: OperatorType.equal },
+    // { columnId: 'gender', searchTerms: ['male'], operator: '=' },
     { columnId: 'name', searchTerms: ['A'], operator: 'a*' },
   ]);
 }
@@ -508,7 +506,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example05.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example05.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -642,7 +640,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     v-model:pagination="paginationOptions"
     grid-id="grid5"
     @onGridStateChanged="gridStateChanged($event.detail)"

@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  Formatters,
-  SlickgridVue,
-  type Column,
-  type GridOption,
-    type PaginationMetadata,
-  type SlickgridVueInstance,
-} from 'slickgrid-vue';
+import { Formatters, SlickgridVue, type Column, type GridOption, type PaginationMetadata, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, onUnmounted, ref, type Ref } from 'vue';
 import { zeroPadding } from './utilities.js';
 
@@ -126,7 +119,7 @@ function toggleDarkModeGrid1() {
     Example 1: Basic Grids
     <span class="float-end font18">
       see&nbsp;
-      <a target="_blank" href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example01.vue">
+      <a target="_blank" href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example01.vue">
         <span class="mdi mdi-link-variant"></span> code
       </a>
     </span>
@@ -148,7 +141,7 @@ function toggleDarkModeGrid1() {
     <SlickgridVue
       v-model:options="gridOptions1!"
       v-model:columns="columnDefinitions1"
-      v-model:data="dataset1"
+      v-model:dataset="dataset1"
       grid-id="grid1-1"
       @onVueGridCreated="vueGrid1Ready($event.detail)"
     >
@@ -162,7 +155,7 @@ function toggleDarkModeGrid1() {
   <slickgrid-vue
     v-model:options="gridOptions2!"
     v-model:columns="columnDefinitions2"
-    v-model:data="dataset2"
+    v-model:dataset="dataset2"
     grid-id="grid1-2"
     @on-pagination-changed="paginationChanged($event.detail)"
   >

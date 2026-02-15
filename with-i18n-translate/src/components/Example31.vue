@@ -4,19 +4,17 @@ import { GridOdataService } from '@slickgrid-universal/odata';
 import { RxJsResource } from '@slickgrid-universal/rxjs-observable';
 import { Observable, of, type Subject } from 'rxjs';
 import {
+  Editors,
+  Filters,
+  SlickgridVue,
+  type Column,
   type GridOption,
   type GridStateChange,
   type Metrics,
   type Pagination,
   type SlickgridVueInstance,
-  type Column,
-  Editors,
-  Filters,
-  OperatorType,
-  SlickgridVue,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-
 import Data from './data/customers_100.json';
 
 const defaultPageSize = 20;
@@ -98,7 +96,7 @@ function defineGrid() {
     enableCellNavigation: true,
     enableFiltering: true,
     enableCheckboxSelector: true,
-    enableRowSelection: true,
+    enableSelection: true,
     enablePagination: true, // you could optionally disable the Pagination
     pagination: {
       pageSizes: [10, 20, 50, 100, 500],
@@ -107,8 +105,8 @@ function defineGrid() {
     presets: {
       // you can also type operator as string, e.g.: operator: 'EQ'
       filters: [
-        // { columnId: 'name', searchTerms: ['w'], operator: OperatorType.startsWith },
-        { columnId: 'gender', searchTerms: ['male'], operator: OperatorType.equal },
+        // { columnId: 'name', searchTerms: ['w'], operator: 'StartsWith' },
+        { columnId: 'gender', searchTerms: ['male'], operator: '=' },
       ],
       sorters: [
         // direction can be written as 'asc' (uppercase or lowercase) and/or use the SortDirection type
@@ -382,7 +380,7 @@ function gridStateChanged(gridStateChanges: GridStateChange) {
 function setFiltersDynamically() {
   // we can Set Filters Dynamically (or different filters) afterward through the FilterService
   vueGrid?.filterService.updateFilters([
-    // { columnId: 'gender', searchTerms: ['male'], operator: OperatorType.equal },
+    // { columnId: 'gender', searchTerms: ['male'], operator: '=' },
     { columnId: 'name', searchTerms: ['A'], operator: 'a*' },
   ]);
 }
@@ -447,7 +445,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example31.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example31.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -545,7 +543,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
     v-model:pagination="paginationOptions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid31"
     @onGridStateChanged="gridStateChanged($event.detail)"
     @onVueGridCreated="vueGridReady($event.detail)"

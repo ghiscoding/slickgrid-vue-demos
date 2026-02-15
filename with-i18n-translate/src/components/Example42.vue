@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import {
-  BasePaginationModel,
-  type Column,
   Filters,
   Formatters,
+  SlickgridVue,
+  type BasePaginationModel,
+  type Column,
   type GridOption,
   type MultipleSelectOption,
-  OperatorType,
-  SlickgridVue,
   type SlickgridVueInstance,
   type SliderRangeOption,
 } from 'slickgrid-vue';
-import { DefineComponent, onBeforeMount, ref, type Ref } from 'vue';
-
+import { onBeforeMount, ref, type DefineComponent, type Ref } from 'vue';
 import CustomPagerComponent from './CustomPagerComponent.vue';
 
 const NB_ITEMS = 5000;
@@ -63,7 +61,7 @@ function defineGrid() {
       filter: {
         model: Filters.sliderRange,
         maxValue: 100, // or you can use the options as well
-        operator: OperatorType.rangeInclusive, // defaults to inclusive
+        operator: 'RangeInclusive', // defaults to inclusive
         options: {
           hideSliderNumbers: false, // you can hide/show the slider numbers on both side
           min: 0,
@@ -109,7 +107,7 @@ function defineGrid() {
       filterable: true,
       filter: {
         model: Filters.input,
-        operator: OperatorType.rangeExclusive, // defaults to exclusive
+        operator: 'RangeExclusive', // defaults to exclusive
       },
     },
     {
@@ -202,7 +200,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example42.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example42.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -235,7 +233,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid42"
     @onVueGridCreated="vueGridReady($event.detail)"
   >

@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import {
+  Editors,
+  Filters,
+  Formatters,
+  SlickGlobalEditorLock,
+  SlickgridVue,
+  SortComparers,
   type AutocompleterOption,
   type Column,
   type EditCommand,
-  Editors,
   type EditorValidator,
-  Filters,
-  Formatters,
   type GridOption,
   type OnEventArgs,
-  OperatorType,
-  SlickGlobalEditorLock,
-  SlickgridVue,
   type SlickgridVueInstance,
   type SliderOption,
-  SortComparers,
   type VanillaCalendarOption,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-
-import { CustomInputEditor } from './custom-inputEditor';
-import { CustomInputFilter } from './custom-inputFilter';
+import { CustomInputEditor } from './custom-inputEditor.js';
+import { CustomInputFilter } from './custom-inputFilter.js';
 import SAMPLE_COLLECTION_DATA from './data/collection_100_numbers.json';
 import SAMPLE_COLLECTION_DATA_URL from './data/collection_100_numbers.json?url';
 import COUNTRIES_COLLECTION from './data/countries.json';
@@ -35,24 +33,7 @@ let isAutoEdit = true;
 const alertWarning = ref();
 const updatedObject = ref();
 const showSubTitle = ref(true);
-
-const gridOptions = ref<GridOption>({
-  autoEdit: isAutoEdit,
-  autoCommitEdit: false,
-  autoResize: {
-    container: '#demo-container',
-    rightPadding: 10,
-  },
-  editable: true,
-  enableCellNavigation: true,
-  enableExcelCopyBuffer: true,
-  enableFiltering: true,
-  editCommandHandler: (_item, _column, editCommand) => {
-    _commandQueue.push(editCommand);
-    editCommand.execute();
-  },
-  // i18n: i18n,
-});
+const gridOptions = ref<GridOption>();
 const columnDefinitions: Ref<Column[]> = ref([]);
 const dataset = ref<any[]>([]);
 let vueGrid!: SlickgridVueInstance;
@@ -60,7 +41,7 @@ let vueGrid!: SlickgridVueInstance;
 // you can create custom validator to pass to an inline editor
 const myCustomTitleValidator: EditorValidator = (value: any) => {
   // you can get the Editor Args which can be helpful, e.g. we can get the Translate Service from it
-  // const grid = args && args.grid;
+  // const grid = args?.grid;
   // const gridOptions = grid.getOptions() as GridOption;
   // const i18n = gridOptions.i18n;
 
@@ -222,7 +203,7 @@ function defineGrid() {
         collectionFilterBy: {
           property: 'value',
           value: 0,
-          operator: OperatorType.notEqual,
+          operator: '!=',
         },
         model: Editors.singleSelect,
         // validator: (value, args) => {
@@ -437,10 +418,27 @@ function defineGrid() {
           separatorBetweenTextLabels: ' ',
         },
         model: Filters.multipleSelect,
-        operator: OperatorType.inContains,
+        operator: 'IN_CONTAINS',
       },
     },
   ];
+
+  gridOptions.value = {
+    autoEdit: isAutoEdit,
+    autoCommitEdit: false,
+    autoResize: {
+      container: '#demo-container',
+      rightPadding: 10,
+    },
+    editable: true,
+    enableCellNavigation: true,
+    enableExcelCopyBuffer: true,
+    enableFiltering: true,
+    editCommandHandler: (_item, _column, editCommand) => {
+      _commandQueue.push(editCommand);
+      editCommand.execute();
+    },
+  };
 }
 
 /** Add a new row to the grid and refresh the Filter collection */
@@ -559,11 +557,14 @@ function onValidationError(_e: Event, args: any) {
     alert(args.validationResults.msg);
   }
 }
+
 function changeAutoCommit() {
-  gridOptions.value.autoCommitEdit = !gridOptions.value.autoCommitEdit;
-  vueGrid.slickGrid.setOptions({
-    autoCommitEdit: gridOptions.value.autoCommitEdit,
-  });
+  if (gridOptions.value) {
+    gridOptions.value.autoCommitEdit = !gridOptions.value.autoCommitEdit;
+    vueGrid.slickGrid.setOptions({
+      autoCommitEdit: gridOptions.value.autoCommitEdit,
+    });
+  }
   return true;
 }
 
@@ -641,7 +642,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example03.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example03.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -697,7 +698,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
                 id="autoCommitEdit"
                 type="checkbox"
                 data-test="auto-commit"
-                :value="gridOptions.autoCommitEdit"
+                :value="gridOptions?.autoCommitEdit"
                 @click="changeAutoCommit()"
               />
               Auto Commit Edit
@@ -753,9 +754,9 @@ function vueGridReady(grid: SlickgridVueInstance) {
   </div>
 
   <slickgrid-vue
-    v-model:options="gridOptions as GridOption"
+    v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid3"
     @on-cell-change="onCellChanged($event.detail.eventData, $event.detail.args)"
     @on-click="onCellClicked($event.detail.eventData, $event.detail.args)"

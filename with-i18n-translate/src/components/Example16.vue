@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type GridOption, type SlickgridVueInstance, type Column, Filters, Formatters, SlickgridVue } from 'slickgrid-vue';
+import { Filters, Formatters, SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
 const NB_ITEMS = 500;
@@ -70,8 +70,8 @@ function defineGrid() {
       hideInFilterHeaderRow: false,
       hideInColumnTitleRow: true,
     },
-    enableRowSelection: true,
-    rowSelectionOptions: {
+    enableSelection: true,
+    selectionOptions: {
       // True (Single Selection), False (Multiple Selections)
       selectActiveRow: false,
     },
@@ -112,7 +112,7 @@ function defineGrid() {
 }
 
 // function getRowMoveInstance() {
-//   return vueGrid.extensionService.getExtensionInstanceByName(ExtensionName.rowMoveManager);
+//   return vueGrid.extensionService.getExtensionInstanceByName('rowMoveManager');
 // }
 
 function getData(count: number) {
@@ -291,7 +291,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example16.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example16.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -358,7 +358,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid16"
     @onVueGridCreated="vueGridReady($event.detail)"
   >

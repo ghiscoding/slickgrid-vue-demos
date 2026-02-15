@@ -2,15 +2,15 @@
 import { format as tempoFormat } from '@formkit/tempo';
 import { useTranslation } from 'i18next-vue';
 import {
+  Filters,
+  Formatters,
+  SlickgridVue,
+  type Column,
   type GridOption,
   type GridState,
   type GridStateChange,
   type MultipleSelectOption,
   type SlickgridVueInstance,
-  type Column,
-  Filters,
-  Formatters,
-  SlickgridVue,
 } from 'slickgrid-vue';
 import { onBeforeMount, onMounted, onUnmounted, ref, type Ref } from 'vue';
 
@@ -283,7 +283,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example15.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example15.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -326,7 +326,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid15"
     @onGridStateChanged="gridStateChanged($event.detail)"
     @onVueGridCreated="vueGridReady($event.detail)"

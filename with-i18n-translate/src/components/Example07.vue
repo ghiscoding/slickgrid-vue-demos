@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type GridOption, type SlickgridVueInstance, type Column, SlickgridVue } from 'slickgrid-vue';
+import { SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
 const NB_ITEMS = 200;
@@ -241,7 +241,7 @@ function vueGrid2Ready(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example07.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example07.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -278,7 +278,7 @@ function vueGrid2Ready(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions1!"
     v-model:columns="columnDefinitions1"
-    v-model:data="dataset1"
+    v-model:dataset="dataset1"
     grid-id="grid7-1"
     @onVueGridCreated="vueGrid1Ready($event.detail)"
   >
@@ -291,7 +291,7 @@ function vueGrid2Ready(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions2!"
     v-model:columns="columnDefinitions2"
-    v-model:data="dataset2"
+    v-model:dataset="dataset2"
     grid-id="grid7-2"
     @onVueGridCreated="vueGrid2Ready($event.detail)"
   >

@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import {
+  Aggregators,
+  Editors,
+  Formatters,
+  GroupTotalFormatters,
+  SlickgridVue,
   type Aggregator,
+  type Column,
   type ExcelCellValueParserArgs,
   type ExcelGroupValueParserArgs,
   type Formatter,
@@ -10,12 +16,6 @@ import {
   type SlickGrid,
   type SlickgridVueInstance,
   type SlickGroupTotals,
-  Aggregators,
-  type Column,
-  Editors,
-  Formatters,
-  GroupTotalFormatters,
-  SlickgridVue,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
@@ -509,7 +509,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example36.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example36.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -572,7 +572,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid36"
     @onCellChange="invalidateAll()"
     @onVueGridCreated="vueGridReady($event.detail)"

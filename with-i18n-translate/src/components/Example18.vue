@@ -243,12 +243,13 @@ function defineGrid() {
       initialGroupBy: ['duration'],
     },
     darkMode: darkMode.value,
-    enableTextExport: true,
-    enableExcelExport: true,
     excelExportOptions: { sanitizeDataExport: true },
     textExportOptions: { sanitizeDataExport: true },
     externalResources: [excelExportService, pdfExportService, textExportService],
-    enablePdfExport: true,
+    // -- NOTE: registered resources are auto-enabled
+    // enableTextExport: true,
+    // enableExcelExport: true,
+    // enablePdfExport: true,
     pdfExportOptions: {
       repeatHeadersOnEachPage: true, // defaults to true
       documentTitle: 'Grouping Grid',
@@ -432,7 +433,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example18.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example18.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -552,7 +553,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid18"
     @onVueGridCreated="vueGridReady($event.detail)"
   >

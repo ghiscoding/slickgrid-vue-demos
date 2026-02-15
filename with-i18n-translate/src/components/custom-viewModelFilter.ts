@@ -1,17 +1,16 @@
 import {
+  emptyElement,
   type Column,
   type ColumnFilter,
-  emptyElement,
   type Filter,
   type FilterArguments,
   type FilterCallback,
   type GridOption,
-  OperatorType,
-  type OperatorString,
+  type OperatorType,
   type SearchTerm,
   type SlickGrid,
 } from 'slickgrid-vue';
-import { type App, type ComponentPublicInstance, createApp } from 'vue';
+import { createApp, type App, type ComponentPublicInstance } from 'vue';
 
 interface Props {
   focus: () => void;
@@ -33,7 +32,7 @@ export class CustomVueComponentFilter implements Filter {
   searchTerms: SearchTerm[] = [];
   columnDef!: Column;
   callback!: FilterCallback;
-  operator: OperatorType | OperatorString = OperatorType.equal;
+  operator: OperatorType = 'EQ';
   selectedItem: any;
 
   /** Get the Collection */

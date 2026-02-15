@@ -2,17 +2,17 @@
 import { faker } from '@faker-js/faker';
 import sparkline from '@fnando/sparkline';
 import {
-  type Formatter,
-  type GridOption,
-  type SlickgridVueInstance,
   Aggregators,
-  type Column,
   createDomElement,
   deepCopy,
   Filters,
   Formatters,
   GroupTotalFormatters,
   SlickgridVue,
+  type Column,
+  type Formatter,
+  type GridOption,
+  type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { onBeforeMount, onMounted, onUnmounted, ref, type Ref } from 'vue';
 
@@ -26,7 +26,7 @@ const highlightDuration = ref(150);
 const minChangePerCycle = ref(0);
 const maxChangePerCycle = ref(10);
 const refreshRate = ref(75);
-let timer = 0;
+let timer: any = 0;
 const showSubTitle = ref(true);
 let vueGrid!: SlickgridVueInstance;
 
@@ -51,7 +51,7 @@ const priceFormatter: Formatter = (_cell, _row, value, _col, dataContext) => {
 };
 
 const transactionTypeFormatter: Formatter = (_row, _cell, value: string) =>
-  `<div class="d-inline-flex align-items-center"><span class="me-1 mdi mdi-16px mdi-${value === 'Buy' ? 'plus' : 'minus'}-circle ${value === 'Buy' ? 'text-info' : 'text-warning'}"></span> ${value}</div>`;
+  `<div class="d-inline-flex align-items-center"><span class="me-1 mdi font-16px mdi-${value === 'Buy' ? 'plus' : 'minus'}-circle ${value === 'Buy' ? 'text-info' : 'text-warning'}"></span> ${value}</div>`;
 
 const historicSparklineFormatter: Formatter = (_row, _cell, _value: string, _col, dataContext) => {
   if (dataContext.historic.length < 2) {
@@ -270,7 +270,7 @@ function defineGrid() {
     },
     draggableGrouping: {
       dropPlaceHolderText: 'Drop a column header here to group by any of these available columns: Currency, Market or Type',
-      deleteIconCssClass: 'mdi mdi-close text-color-danger',
+      deleteIconCssClass: 'mdi mdi-close color-danger',
       sortAscIconCssClass: 'mdi mdi-arrow-up',
       sortDescIconCssClass: 'mdi mdi-arrow-down',
     },
@@ -365,7 +365,7 @@ function startSimulation() {
 }
 
 function stopSimulation() {
-  window.clearTimeout(timer);
+  clearTimeout(timer);
 }
 
 function findColumnById(columnName: string): Column {
@@ -442,7 +442,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example34.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example34.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -514,7 +514,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
     <slickgrid-vue
       v-model:options="gridOptions"
       v-model:columns="columnDefinitions"
-      v-model:data="dataset"
+      v-model:dataset="dataset"
       grid-id="grid34"
       @onVueGridCreated="vueGridReady($event.detail)"
     >

@@ -3,15 +3,14 @@ import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import { TextExportService } from '@slickgrid-universal/text-export';
 import { useTranslation } from 'i18next-vue';
 import {
-  type Column,
-  DelimiterType,
   Filters,
-  type Formatter,
   Formatters,
-  GridOption,
-  GridStateChange,
   SlickgridVue,
-  SlickgridVueInstance,
+  type Column,
+  type Formatter,
+  type GridOption,
+  type GridStateChange,
+  type SlickgridVueInstance,
   type SliderOption,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
@@ -166,7 +165,7 @@ function defineGrid() {
       hideInColumnTitleRow: true,
     },
     enableCheckboxSelector: true,
-    enableRowSelection: true,
+    enableSelection: true,
     showCustomFooter: true, // display some metrics in the bottom custom footer
     customFooterOptions: {
       metricTexts: {
@@ -280,7 +279,7 @@ function exportToExcel() {
 
 function exportToFile(type = 'csv') {
   textExportService.exportToFile({
-    delimiter: type === 'csv' ? DelimiterType.comma : DelimiterType.tab,
+    delimiter: type === 'csv' ? ',' : '\t',
     filename: 'myExport',
     format: type === 'csv' ? 'csv' : 'txt',
   });
@@ -317,7 +316,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example12.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example12.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -406,7 +405,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid12"
     @onGridStateChanged="gridStateChanged($event.detail)"
     @onVueGridCreated="vueGridReady($event.detail)"

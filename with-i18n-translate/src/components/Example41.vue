@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type GridOption, type SlickgridVueInstance, type Column, Formatters, SlickGlobalEditorLock, SlickgridVue } from 'slickgrid-vue';
+import { Formatters, SlickGlobalEditorLock, SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
 const gridOptions = ref<GridOption>();
@@ -45,11 +45,12 @@ function defineGrid() {
     gridWidth: 800,
     rowHeight: 33,
     enableCellNavigation: true,
-    enableRowSelection: true,
+    enableSelection: true,
     enableRowMoveManager: true,
-    rowSelectionOptions: {
+    selectionOptions: {
       // True (Single Selection), False (Multiple Selections)
       selectActiveRow: false,
+      selectionType: 'row',
     },
     rowMoveManager: {
       columnIndexPosition: 0,
@@ -222,7 +223,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example41.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example41.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -245,7 +246,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <slickgrid-vue
         v-model:options="gridOptions"
         v-model:columns="columnDefinitions"
-        v-model:data="dataset"
+        v-model:dataset="dataset"
         grid-id="grid2"
         @onDragInit="handleOnDragInit($event.detail.eventData)"
         @onDragStart="handleOnDragStart($event.detail.eventData)"

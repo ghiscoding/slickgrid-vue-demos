@@ -2,21 +2,19 @@
 import { format as tempoFormat } from '@formkit/tempo';
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import {
-  type Column,
   Filters,
   Formatters,
+  SlickgridVue,
+  type Column,
   type GridOption,
   type GridStateChange,
   type Metrics,
   type MultipleSelectOption,
-  OperatorType,
-  SlickgridVue,
   type SlickgridVueInstance,
   type VanillaCalendarOption,
 } from 'slickgrid-vue';
 import { onBeforeMount, onBeforeUnmount, onMounted, ref, type Ref } from 'vue';
-
-import { CustomInputFilter } from './custom-inputFilter';
+import { CustomInputFilter } from './custom-inputFilter.js';
 import SAMPLE_COLLECTION_DATA from './data/collection_500_numbers.json';
 
 const NB_ITEMS = 10500;
@@ -91,12 +89,12 @@ function defineGrid() {
         collectionFilterBy: [
           {
             property: 'value',
-            operator: OperatorType.notEqual,
+            operator: '!=',
             value: 360,
           },
           {
             property: 'value',
-            operator: OperatorType.notEqual,
+            operator: '!=',
             value: 365,
           },
         ],
@@ -310,12 +308,12 @@ function setSortingDynamically() {
 }
 
 function refreshMetrics(_e: Event, args: any) {
-  if (args && args.current >= 0) {
+  if (args?.current >= 0) {
     setTimeout(() => {
       metrics.value = {
         startTime: new Date(),
         endTime: new Date(),
-        itemCount: (args && args.current) || 0,
+        itemCount: args?.current || 0,
         totalItemCount: dataset.value.length || 0,
       };
     });
@@ -357,7 +355,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example04.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example04.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -432,7 +430,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid4"
     @onGridStateChanged="gridStateChanged($event.detail)"
     @onRowCountChanged="refreshMetrics($event.detail.eventData, $event.detail.args)"

@@ -2,15 +2,14 @@
 import type { GraphqlResult, GraphqlServiceApi } from '@slickgrid-universal/graphql';
 import { GraphqlService } from '@slickgrid-universal/graphql';
 import {
+  Filters,
+  Formatters,
+  SlickgridVue,
+  type Column,
   type GridOption,
   type Metrics,
   type MultipleSelectOption,
   type SlickgridVueInstance,
-  type Column,
-  Filters,
-  Formatters,
-  OperatorType,
-  SlickgridVue,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
@@ -83,7 +82,7 @@ function defineGrid() {
       filter: {
         model: Filters.multipleSelect,
         collectionAsync: getLanguages(),
-        operator: OperatorType.inContains,
+        operator: 'IN_CONTAINS',
         collectionOptions: {
           addBlankEntry: true,
           // the data is not at the root of the array, so we must tell the Select Filter where to pull the data
@@ -111,7 +110,7 @@ function defineGrid() {
       filter: {
         model: Filters.multipleSelect,
         collectionAsync: getLanguages(),
-        operator: OperatorType.inContains,
+        operator: 'IN_CONTAINS',
         collectionOptions: {
           addBlankEntry: true,
           // the data is not at the root of the array, so we must tell the Select Filter where to pull the data
@@ -288,7 +287,7 @@ function getLanguages(): Promise<GraphqlResult<{ code: string; name: string; nat
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example25.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example25.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -344,7 +343,7 @@ function getLanguages(): Promise<GraphqlResult<{ code: string; name: string; nat
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid25"
     @onVueGridCreated="vueGridReady($event.detail)"
   >
