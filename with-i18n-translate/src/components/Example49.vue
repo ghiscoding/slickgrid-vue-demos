@@ -73,10 +73,11 @@ function defineGrid() {
     editorNavigateOnArrows: true, // enable editor navigation using arrow keys
 
     // enable new hybrid selection model (rows & cells)
-    enableHybridSelection: true,
-    rowSelectionOptions: {
-      selectActiveRow: true,
+    enableSelection: true,
+    selectionOptions: {
       rowSelectColumnIds: ['selector'],
+      selectActiveRow: true,
+      selectionType: 'mixed',
     },
 
     // when using the ExcelCopyBuffer, you can see what the selection range is
@@ -152,7 +153,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       Example 49: Spreadsheet Drag-Fill
       <span class="float-end font18">
         see&nbsp;
-        <a target="_blank" href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example49.vue">
+        <a target="_blank" href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example49.vue">
           <span class="mdi mdi-link-variant"></span> code
         </a>
       </span>
@@ -168,7 +169,8 @@ function vueGridReady(grid: SlickgridVueInstance) {
     <div class="subtitle">
       Spreadsheet with drag-fill, hybrid selection model. Type a few values in the grid and then select those cells and use the bottom right
       drag handle spread the selection and auto-fill the values to other cells. Use <code>onDragReplaceCells</code> event to customize the
-      drag-fill behavior. Use <code>enableHybridSelection</code> grid option to enable the new Hybrid Selection Model.
+      drag-fill behavior. Use <code>&#123; enableSelection: true, selectionOptions: &#123; selectionType: 'mixed' &#125;&#125;</code>
+      grid option to enable the new Hybrid Selection Model.
     </div>
 
     <br />
@@ -176,7 +178,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
     <slickgrid-vue
       v-model:options="gridOptions"
       v-model:columns="columnDefinitions"
-      v-model:data="dataset"
+      v-model:dataset="dataset"
       grid-id="grid49"
       @onVueGridCreated="vueGridReady($event.detail)"
       @onDragReplaceCells="copyDraggedCellRange($event.detail.args)"

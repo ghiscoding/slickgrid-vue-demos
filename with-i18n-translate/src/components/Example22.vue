@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { type GridOption, type SlickgridVueInstance, type Column, Filters, SlickgridVue } from 'slickgrid-vue';
+import { Filters, SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-
 import CUSTOMERS_URL from './data/customers_100.json?url';
 
 const NB_ITEMS = 500;
@@ -139,7 +138,7 @@ function vueGrid2Ready(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example22.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example22.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -194,7 +193,7 @@ function vueGrid2Ready(grid: SlickgridVueInstance) {
         <slickgrid-vue
           v-model:options="gridOptions1!"
           v-model:columns="columnDefinitions1"
-          v-model:data="dataset1"
+          v-model:dataset="dataset1"
           grid-id="grid1"
           @onVueGridCreated="vueGrid1Ready($event.detail)"
         >
@@ -205,7 +204,7 @@ function vueGrid2Ready(grid: SlickgridVueInstance) {
         <slickgrid-vue
           v-model:options="gridOptions2!"
           v-model:columns="columnDefinitions2"
-          v-model:data="dataset2"
+          v-model:dataset="dataset2"
           grid-id="grid2"
           @onVueGridCreated="vueGrid2Ready($event.detail)"
         >

@@ -3,18 +3,6 @@ import { SlickCompositeEditor, SlickCompositeEditorComponent } from '@slickgrid-
 import { SlickCustomTooltip } from '@slickgrid-universal/custom-tooltip-plugin';
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import {
-  type AutocompleterOption,
-  type CompositeEditorModalType,
-  type EditCommand,
-  type Formatter,
-  type GridOption,
-  type GridStateChange,
-  type LongTextEditorOption,
-  type OnCompositeEditorChangeEventArgs,
-  type SlickGrid,
-  type SlickgridVueInstance,
-  type VanillaCalendarOption,
-  type Column,
   Editors,
   Filters,
   formatNumber,
@@ -22,9 +10,22 @@ import {
   SlickGlobalEditorLock,
   SlickgridVue,
   SortComparers,
+  type AutocompleterOption,
+  type Column,
+  type CompositeEditorModalType,
+  type EditCommand,
+  type Formatter,
+  type GridOption,
+  type GridStateChange,
+  type LongTextEditorOption,
+  type MultipleSelectOption,
+  type OnCompositeEditorChangeEventArgs,
+  type SlickGrid,
+  type SlickgridVueInstance,
+  type SliderOption,
+  type VanillaCalendarOption,
 } from 'slickgrid-vue';
 import { onBeforeMount, onUnmounted, ref, type Ref } from 'vue';
-
 import COUNTRIES_COLLECTION from './data/countries.json';
 
 const NB_ITEMS = 500;
@@ -98,6 +99,7 @@ function defineGrid() {
       editor: {
         model: Editors.longText,
         massUpdate: false,
+        compositeEditorFormOrder: 0, // you can use this option to always keep same order and make this the 1st input
         required: true,
         alwaysSaveOnEnterKey: true,
         maxLength: 12,
@@ -129,6 +131,7 @@ function defineGrid() {
       },
       editor: {
         model: Editors.float,
+        compositeEditorFormOrder: 2, // inverse order of Duration & Percent Complete in the form
         massUpdate: true,
         decimal: 2,
         valueStep: 1,
@@ -164,6 +167,7 @@ function defineGrid() {
       editor: {
         model: Editors.slider,
         massUpdate: true,
+        compositeEditorFormOrder: 1, // inverse order of Duration & Percent Complete in the form
         minValue: 0,
         maxValue: 100,
       },
@@ -208,6 +212,7 @@ function defineGrid() {
       filter: {
         model: Filters.multipleSelect,
         collection: complexityLevelList.value,
+        options: { showClear: true } as MultipleSelectOption,
       },
       editor: {
         model: Editors.singleSelect,
@@ -229,7 +234,7 @@ function defineGrid() {
       saveOutputType: 'dateUtc',
       filterable: true,
       filter: { model: Filters.compoundDate },
-      editor: { model: Editors.date, massUpdate: true, options: { hideClearButton: false } },
+      editor: { model: Editors.date, massUpdate: true, options: { hideClearButton: false } as SliderOption },
     },
     {
       id: 'completed',
@@ -251,6 +256,7 @@ function defineGrid() {
           { value: false, label: 'False' },
         ],
         model: Filters.singleSelect,
+        options: { showClear: true } as MultipleSelectOption,
       },
       editor: { model: Editors.checkbox, massUpdate: true },
       // editor: { model: Editors.singleSelect, collection: [{ value: true, label: 'Yes' }, { value: false, label: 'No' }], },
@@ -272,7 +278,7 @@ function defineGrid() {
       editor: {
         model: Editors.date,
         options: {
-          displayDateMin: 'today',
+          displayDateMin: 'today', // set minimum date as today
 
           // if we want to preload the date picker with a different date,
           // we could do it by assigning `selectedDates: []`
@@ -329,6 +335,7 @@ function defineGrid() {
       filter: {
         model: Filters.inputText,
         // placeholder: '🔎︎ search product',
+        type: 'string',
         queryField: 'product.itemName',
       },
     },
@@ -355,6 +362,7 @@ function defineGrid() {
       },
       filter: {
         model: Filters.inputText,
+        type: 'string',
         queryField: 'origin.name',
       },
     },
@@ -438,7 +446,7 @@ function defineGrid() {
     },
     externalResources: [new ExcelExportService(), new SlickCustomTooltip(), compositeEditorInstance.value],
     enableFiltering: true,
-    rowSelectionOptions: {
+    selectionOptions: {
       // True (Single Selection), False (Multiple Selections)
       selectActiveRow: false,
     },
@@ -446,7 +454,7 @@ function defineGrid() {
     showPreHeaderPanel: true,
     preHeaderPanelHeight: 28,
     enableCheckboxSelector: true,
-    enableRowSelection: true,
+    enableSelection: true,
     multiSelect: false,
     checkboxSelector: {
       hideInFilterHeaderRow: false,
@@ -554,8 +562,8 @@ function handleValidationError(e: Event, args: any) {
   return false;
 }
 
-function handleItemsDeleted(itemId: string) {
-  console.log('item deleted with id:', itemId);
+function handleItemsDeleted(itemIds: string[]) {
+  console.log('item deleted with ids:', itemIds);
 }
 
 function handleOnBeforeEditCell(e: Event, args: any) {
@@ -1048,7 +1056,7 @@ function renderItemCallbackWith4Corners(item: any): string {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example30.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example30.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -1144,7 +1152,7 @@ function renderItemCallbackWith4Corners(item: any): string {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid30"
     @onBeforeEditCell="handleOnBeforeEditCell($event.detail.eventData, $event.detail.args)"
     @onCellChange="handleOnCellChange($event.detail.eventData, $event.detail.args)"

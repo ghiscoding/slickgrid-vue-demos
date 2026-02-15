@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useTranslation } from 'i18next-vue';
 import {
-  type GridOption,
-  type SlickgridVueInstance,
-  type Column,
-  ExtensionName,
   Filters,
   Formatters,
   SlickgridVue,
+  type Column,
+  type GridOption,
+  type SlickgridVueInstance,
   type SliderRangeOption,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
@@ -281,7 +280,7 @@ function generatePhoneNumber() {
 
 function toggleGridMenu(e: MouseEvent) {
   if (vueGrid?.extensionService) {
-    const gridMenuInstance = vueGrid.extensionService.getExtensionInstanceByName(ExtensionName.gridMenu);
+    const gridMenuInstance = vueGrid.extensionService.getExtensionInstanceByName('gridMenu');
     // open the external button Grid Menu, you can also optionally pass Grid Menu options as 2nd argument
     // for example we want to align our external button on the right without affecting the menu within the grid which will stay aligned on the left
     gridMenuInstance.showGridMenu(e, { dropSide: 'right' });
@@ -322,7 +321,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example09.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example09.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -362,7 +361,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid9"
     @onVueGridCreated="vueGridReady($event.detail)"
   >

@@ -120,7 +120,7 @@ function defineGrid() {
       sanitizeDataExport: true,
     },
     enableCheckboxSelector: true,
-    enableRowSelection: true,
+    enableSelection: true,
     multiSelect: false,
     checkboxSelector: {
       // columnIndexPosition: 1,
@@ -320,7 +320,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example46.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example46.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>

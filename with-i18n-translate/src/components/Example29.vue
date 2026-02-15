@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { type GridOption, type SlickgridVueInstance, type Column, Formatters, SlickgridVue } from 'slickgrid-vue';
+import { Formatters, SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-
 import CustomFooter from './CustomFooterComponent.vue';
 
 const NB_ITEMS = 995;
@@ -64,6 +63,10 @@ function toggleSubTitle() {
   document.querySelector('.subtitle')?.classList[action]('hidden');
   queueMicrotask(() => vueGrid.resizerService.resizeGrid());
 }
+
+function vueGridReady(grid: SlickgridVueInstance) {
+  vueGrid = grid;
+}
 </script>
 
 <template>
@@ -73,7 +76,7 @@ function toggleSubTitle() {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example29.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example29.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -87,7 +90,13 @@ function toggleSubTitle() {
 
   <hr />
 
-  <slickgrid-vue v-model:options="gridOptions" v-model:columns="columnDefinitions" v-model:data="dataset" grid-id="grid2">
+  <slickgrid-vue
+    v-model:options="gridOptions"
+    v-model:columns="columnDefinitions"
+    v-model:dataset="dataset"
+    grid-id="grid2"
+    @onVueGridCreated="vueGridReady($event.detail)"
+  >
     <template #header>
       <div class="custom-header-slot">
         <h3>Grid with header and footer slot</h3>

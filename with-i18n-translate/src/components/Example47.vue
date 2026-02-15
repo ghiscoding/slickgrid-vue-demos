@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { VueSlickRowDetailView } from '@slickgrid-universal/vue-row-detail-plugin';
 import {
   Aggregators,
   Editors,
@@ -156,6 +157,7 @@ function defineGrid() {
     enableRowDetailView: true,
     rowTopOffsetRenderType: 'top', // RowDetail and/or RowSpan don't render well with "transform", you should use "top"
     darkMode: isDarkMode.value,
+    externalResources: [VueSlickRowDetailView],
     rowDetailView: {
       // We can load the "process" asynchronously in 2 different ways (Fetch OR Promise)
       process: (item: any) => simulateServerAsyncCall(item),
@@ -178,7 +180,7 @@ function defineGrid() {
       // ViewModel Template to load when row detail data is ready
       viewComponent: Example47Detail as any,
     },
-    rowSelectionOptions: {
+    selectionOptions: {
       // True (Single Selection), False (Multiple Selections)
       selectActiveRow: true,
     },
@@ -349,7 +351,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
         <a
           style="font-size: 18px"
           target="_blank"
-          href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example47.vue"
+          href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example47.vue"
         >
           <span class="mdi mdi-link-variant"></span> code
         </a>
@@ -429,7 +431,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
     <slickgrid-vue
       v-model:options="gridOptions"
       v-model:columns="columnDefinitions"
-      v-model:data="dataset"
+      v-model:dataset="dataset"
       grid-id="grid47"
       @onVueGridCreated="vueGridReady($event.detail)"
     >

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type GridOption, type SlickgridVueInstance, type Column, Editors, Formatters, SlickgridVue } from 'slickgrid-vue';
+import { Editors, Formatters, SlickgridVue, type Column, type GridOption, type SlickgridVueInstance } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
 const NB_ITEMS = 1000;
@@ -109,7 +109,7 @@ function defineGrid() {
     editable: true,
     enableColumnPicker: true,
     enableCellNavigation: true,
-    enableRowSelection: true,
+    enableSelection: true,
   };
 }
 
@@ -178,7 +178,6 @@ function changeDurationBackgroundColor() {
   vueGrid.dataView.getItemMetadata = updateItemMetadataForDurationOver40(vueGrid.dataView.getItemMetadata);
   // also re-render the grid for the styling to be applied right away
   vueGrid.slickGrid.invalidate();
-  vueGrid.slickGrid.render();
   // or use the SlickGrid-Vue GridService
   // gridService.renderGrid();
 }
@@ -259,7 +258,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example11.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example11.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -280,7 +279,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
       <li>Adding an item, will always be showing as the 1st item in the grid because that is the best visual place to add it</li>
       <li>Add/Update an item requires a valid Slickgrid Selection Model, you have 2 choices to deal with this:</li>
       <ul>
-        <li>You can enable "enableCheckboxSelector" or "enableRowSelection" to True</li>
+        <li>You can enable "enableCheckboxSelector" or "enableSelection" to True</li>
       </ul>
       <li>Click on any of the buttons below to test this out</li>
       <li>
@@ -341,7 +340,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <slickgrid-vue
     v-model:options="gridOptions"
     v-model:columns="columnDefinitions"
-    v-model:data="dataset"
+    v-model:dataset="dataset"
     grid-id="grid11"
     @onVueGridCreated="vueGridReady($event.detail)"
   >

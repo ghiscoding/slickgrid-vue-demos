@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import {
+  Filters,
+  Formatters,
+  SlickgridVue,
+  type Column,
   type GridOption,
   type SlickgridVueInstance,
   type TreeToggledItem,
   type TreeToggleStateChange,
-  type Column,
-  Filters,
-  Formatters,
-  SlickgridVue,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
@@ -266,7 +266,7 @@ function hideSpinner() {
 
 function showSpinner() {
   if (isLargeDataset.value) {
-    loadingClass.value = 'mdi mdi-load mdi-spin-1s mdi-24px color-alt-success';
+    loadingClass.value = 'mdi mdi-load mdi-spin-1s font-24px color-alt-success';
   }
 }
 
@@ -387,14 +387,14 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <h2>
     Example 27: Tree Data
     <small>
-      <span class="mdi mdi-file-tree mdi-27px"></span> (from a flat dataset with <code>parentId</code> references -
+      <span class="mdi mdi-file-tree font-27px"></span> (from a flat dataset with <code>parentId</code> references -
       <a href="https://ghiscoding.gitbook.io/slickgrid-vue/grid-functionalities/tree-data-grid" target="_blank">Wiki</a>)</small
     >
     <span class="float-end">
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example27.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example27.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
@@ -423,7 +423,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <div class="row" style="margin-bottom: 4px">
     <div class="col-md-12">
       <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="add-500-rows-btn" @click="loadData(500)">500 rows</button>
-      <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="add-50k-rows-btn" @click="loadData(25000)">25k rows</button>
+      <button class="btn btn-outline-secondary btn-xs btn-icon mx-1" data-test="add-75k-rows-btn" @click="loadData(75000)">75k rows</button>
       <button class="btn btn-outline-secondary btn-xs btn-icon" data-test="change-filter-dynamically" @click="dynamicallyChangeFilter()">
         <span class="mdi mdi-filter-outline"></span>
         <span>Dynamically Change Filter (% complete &lt; 40)</span>
@@ -493,7 +493,7 @@ function vueGridReady(grid: SlickgridVueInstance) {
     <slickgrid-vue
       v-model:options="gridOptions"
       v-model:columns="columnDefinitions"
-      v-model:data="dataset"
+      v-model:dataset="dataset"
       grid-id="grid27"
       @onBeforeFilterChange="showSpinner()"
       @onFilterChanged="hideSpinner()"
@@ -501,8 +501,6 @@ function vueGridReady(grid: SlickgridVueInstance) {
       @onFilterCleared="hideSpinner()"
       @onBeforeSortChange="showSpinner()"
       @onSortChanged="hideSpinner()"
-      @onBeforeToggleTreeCollapse="showSpinner()"
-      @onToggleTreeCollapsed="hideSpinner()"
       @onTreeFullToggleStart="showSpinner()"
       @onTreeFullToggleEnd="handleOnTreeFullToggleEnd($event.detail)"
       @onTreeItemToggled="handleOnTreeItemToggled($event.detail)"

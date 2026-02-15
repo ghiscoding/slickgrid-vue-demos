@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { ExcelExportService } from '@slickgrid-universal/excel-export';
 import {
-  type Formatter,
-  type GridOption,
-  type SlickDataView,
-  type SlickgridVueInstance,
   addWhiteSpaces,
   Aggregators,
-  type Column,
   decimalFormatted,
   Filters,
   findItemInTreeStructure,
   Formatters,
   isNumber,
   SlickgridVue,
+  type Column,
+  type Formatter,
+  type GridOption,
+  type SlickDataView,
+  type SlickgridVueInstance,
 } from 'slickgrid-vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 
@@ -171,6 +171,7 @@ function defineGrid() {
       columnId: 'file',
       childrenPropName: 'files',
       excludeChildrenWhenFilteringTree: isExcludingChildWhenFiltering.value, // defaults to false
+      // initiallyCollapsed: true,
 
       // skip any other filter criteria(s) if the column holding the Tree (file) passes its own filter criteria
       // (e.g. filtering with "Files = music AND Size > 7", the row "Music" and children will only show up when this flag is enabled
@@ -438,14 +439,14 @@ function vueGridReady(grid: SlickgridVueInstance) {
   <h2>
     Example 28: Tree Data with Aggregators
     <small>
-      <span class="mdi mdi-file-tree mdi-27px"></span> (from a Hierarchical Dataset -
+      <span class="mdi mdi-file-tree font-27px"></span> (from a Hierarchical Dataset -
       <a href="https://ghiscoding.gitbook.io/slickgrid-vue/grid-functionalities/tree-data-grid" target="_blank">Wiki</a>)</small
     >
     <span class="float-end">
       <a
         style="font-size: 18px"
         target="_blank"
-        href="https://github.com/ghiscoding/slickgrid-vue-demos/blob/main/with-i18n-translate/src/components/Example28.vue"
+        href="https://github.com/ghiscoding/slickgrid-universal/blob/master/demos/vue/src/components/Example28.vue"
       >
         <span class="mdi mdi-link-variant"></span> code
       </a>
