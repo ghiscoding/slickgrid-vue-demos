@@ -1,0 +1,1 @@
+import{A as e}from"./index-CBgROb9m.js";function t(t,n=1){let r=e(t);return r.setDate(r.getDate()+n),r}export{t};
