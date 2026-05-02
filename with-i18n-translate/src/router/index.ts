@@ -5,7 +5,6 @@ import Example38 from '../components/Example38.vue';
 import Example39 from '../components/Example39.vue';
 import Home from '../Home.vue';
 
-// prettier-ignore
 export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'root', redirect: '/example01' },
   { path: '/home', name: 'home', component: Home },
