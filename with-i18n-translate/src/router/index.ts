@@ -5,6 +5,7 @@ import Example38 from '../components/Example38.vue';
 import Example39 from '../components/Example39.vue';
 import Home from '../Home.vue';
 
+// prettier-ignore
 export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'root', redirect: '/example01' },
   { path: '/home', name: 'home', component: Home },
@@ -60,6 +61,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/example50', name: '50- Master/Detail Grids', component: () => import('../components/Example50.vue') },
   { path: '/example51', name: '51- Menus with Slots', component: () => import('../components/Example51.vue') },
   { path: '/example52', name: '52- SQL Backend Service', component: () => import('../components/Example52.vue') },
+  { path: '/example53', name: '53- Custom Filter Bar', component: () => import('../components/Example53.vue') },
 ];
 
 export const router = createRouter({
