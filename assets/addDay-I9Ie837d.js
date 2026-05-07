@@ -1,1 +1,0 @@
-import{A as e}from"./index-Da1Fi4bo.js";function t(t,n=1){let r=e(t);return r.setDate(r.getDate()+n),r}export{t};
