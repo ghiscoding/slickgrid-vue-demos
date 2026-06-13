@@ -37,7 +37,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/example27', name: '27- Tree Data (Parent/Child)', component: () => import('../components/Example27.vue') },
   { path: '/example28', name: '28- Tree Data (Hierarchical set)', component: () => import('../components/Example28.vue') },
   { path: '/example29', name: '29- Grid Header & Footer Slots', component: () => import('../components/Example29.vue') },
-  { path: '/example30', name: '30- Composite Editor Model', component: () => import('../components/Example30.vue') },
+  { path: '/example30', name: '30- Composite Editor Modal', component: () => import('../components/Example30.vue') },
   { path: '/example31', name: '31- Backend OData with RxJS', component: () => import('../components/Example31.vue') },
   { path: '/example32', name: '32- Columns Resize by Content', component: () => import('../components/Example32.vue') },
   { path: '/example33', name: '33- Regular & Custom Tooltip', component: () => import('../components/Example33.vue') },
@@ -61,6 +61,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/example51', name: '51- Menus with Slots', component: () => import('../components/Example51.vue') },
   { path: '/example52', name: '52- SQL Backend Service', component: () => import('../components/Example52.vue') },
   { path: '/example53', name: '53- Custom Filter Bar', component: () => import('../components/Example53.vue') },
+  { path: '/example54', name: '54- AI / Web MCP Toolkit', component: () => import('../components/Example54.vue') },
 ];
 
 export const router = createRouter({
