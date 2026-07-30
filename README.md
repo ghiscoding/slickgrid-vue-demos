@@ -3,7 +3,11 @@
 ## Multiple Demos of the [Slickgrid-Vue](https://github.com/ghiscoding/slickgrid-universal/tree/master/frameworks/slickgrid-vue) library
 
 ### Installation
-Git clone the demo and npm install it, then run and enjoy fully working demo.
+Git clone the full demo repo and `npm install` any of the 2 demos described below, then run and enjoy fully working demo.
+
+### Stackblitz
+
+Open in Stackblitz
 
 | Stackblitz | Description |
 | ---------- | ----------- |
