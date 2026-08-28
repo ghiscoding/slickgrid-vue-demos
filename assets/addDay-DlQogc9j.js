@@ -1,0 +1,1 @@
+import{S as e}from"./dist-Dkaqp_5p.js";function t(t,n=1){let r=e(t);return r.setDate(r.getDate()+n),r}export{t};
